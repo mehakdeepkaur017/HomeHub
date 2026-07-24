@@ -164,19 +164,6 @@ export function AssetDetailClient({ asset, activities, relationshipsPanel }: Ass
                   {asset.condition}
                 </span>
               </div>
-              <div className="flex gap-2 items-center">
-                <Link href={`/home/memory?targetId=${asset.id}&targetType=ASSET`}>
-                  <Button variant="outline" size="sm" className="rounded-full h-10 text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-foreground">
-                    History
-                  </Button>
-                </Link>
-                <Button aria-label="Edit asset" variant="outline" size="icon" className="rounded-full h-10 w-10">
-                  <Edit className="h-4 w-4" />
-                </Button>
-                <Button aria-label="More options" variant="outline" size="icon" className="rounded-full h-10 w-10">
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
             
             <h1 className="text-4xl md:text-5xl font-serif tracking-tight text-primary leading-tight">{asset.name}</h1>
