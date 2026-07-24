@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Home, Box, Wallet, Wrench, Shield, Users, Settings, ChevronDown, Check, PackageOpen, Folder, FileText, Receipt } from "lucide-react";
+import { Home, Box, Wallet, Wrench, Shield, Users, Settings, ChevronDown, Check, PackageOpen, Folder, FileText, Receipt, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useHome } from "@/components/providers/home-provider";
 import { useRecentStore } from "@/store/recent-store";
@@ -219,7 +219,7 @@ export function AppSidebar() {
       </div>
       
       {/* Footer Actions */}
-      <div className="p-6 pt-0">
+      <div className="p-6 pt-0 space-y-2">
         <Link 
           href="/settings/profile" 
           className="group w-full flex items-center justify-between p-3 rounded-2xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/40 transition-all duration-300"
@@ -237,6 +237,16 @@ export function AppSidebar() {
           </div>
           <Settings className="h-4 w-4 opacity-40 group-hover:opacity-100 group-hover:rotate-45 transition-all duration-500 shrink-0 ml-2" />
         </Link>
+        <button 
+          onClick={async () => {
+            await fetch("/api/auth/logout", { method: "POST" });
+            window.location.href = "/login";
+          }}
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+        >
+          <LogOut className="h-4 w-4 shrink-0" />
+          <span className="truncate flex-1 text-left">Sign Out</span>
+        </button>
       </div>
     </aside>
   );
