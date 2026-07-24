@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight, Save, ShieldAlert, PackageOpen, ImagePlus, FileT
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { AssetCard } from "../components/asset-card";
+import { toast } from "sonner";
 
 const steps = [
   { id: "identity", title: "Identity" },
@@ -25,6 +26,7 @@ export default function CreateAssetPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedDocs, setSelectedDocs] = useState<{file: File, base64: string}[]>([]);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -186,10 +188,31 @@ export default function CreateAssetPage() {
                           type="file" 
                           className="hidden" 
                           accept="image/*"
-                          onChange={(e) => {
-                            if (e.target.files && e.target.files[0]) {
-                              const url = URL.createObjectURL(e.target.files[0]);
-                              setFormData({ ...formData, coverImage: url });
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            
+                            setIsUploadingImage(true);
+                            const toastId = toast.loading("Uploading securely to Cloudinary...");
+                            
+                            try {
+                              const uploadData = new FormData();
+                              uploadData.append("file", file);
+                        
+                              const res = await fetch("/api/upload", {
+                                method: "POST",
+                                body: uploadData,
+                              });
+                              
+                              const data = await res.json();
+                              if (!res.ok) throw new Error(data.error || "Upload failed");
+                              
+                              setFormData({ ...formData, coverImage: data.url });
+                              toast.success("Image uploaded", { id: toastId });
+                            } catch (error: any) {
+                              toast.error(error.message, { id: toastId });
+                            } finally {
+                              setIsUploadingImage(false);
                             }
                           }}
                         />
