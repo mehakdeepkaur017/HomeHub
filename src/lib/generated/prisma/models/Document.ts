@@ -1000,6 +1000,7 @@ export type DocumentCreateOrConnectWithoutUploadedByInput = {
 
 export type DocumentCreateManyUploadedByInputEnvelope = {
   data: Prisma.DocumentCreateManyUploadedByInput | Prisma.DocumentCreateManyUploadedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentCreateWithoutRelatedMemberInput = {
@@ -1049,6 +1050,7 @@ export type DocumentCreateOrConnectWithoutRelatedMemberInput = {
 
 export type DocumentCreateManyRelatedMemberInputEnvelope = {
   data: Prisma.DocumentCreateManyRelatedMemberInput | Prisma.DocumentCreateManyRelatedMemberInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentUpsertWithWhereUniqueWithoutUploadedByInput = {
@@ -1154,6 +1156,7 @@ export type DocumentCreateOrConnectWithoutHomeInput = {
 
 export type DocumentCreateManyHomeInputEnvelope = {
   data: Prisma.DocumentCreateManyHomeInput | Prisma.DocumentCreateManyHomeInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentUpsertWithWhereUniqueWithoutHomeInput = {
@@ -1219,6 +1222,7 @@ export type DocumentCreateOrConnectWithoutSpaceInput = {
 
 export type DocumentCreateManySpaceInputEnvelope = {
   data: Prisma.DocumentCreateManySpaceInput | Prisma.DocumentCreateManySpaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -1284,6 +1288,7 @@ export type DocumentCreateOrConnectWithoutAssetInput = {
 
 export type DocumentCreateManyAssetInputEnvelope = {
   data: Prisma.DocumentCreateManyAssetInput | Prisma.DocumentCreateManyAssetInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentUpsertWithWhereUniqueWithoutAssetInput = {
@@ -1349,6 +1354,7 @@ export type DocumentCreateOrConnectWithoutMaintenanceInput = {
 
 export type DocumentCreateManyMaintenanceInputEnvelope = {
   data: Prisma.DocumentCreateManyMaintenanceInput | Prisma.DocumentCreateManyMaintenanceInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentUpsertWithWhereUniqueWithoutMaintenanceInput = {
@@ -1414,6 +1420,7 @@ export type DocumentCreateOrConnectWithoutExpenseInput = {
 
 export type DocumentCreateManyExpenseInputEnvelope = {
   data: Prisma.DocumentCreateManyExpenseInput | Prisma.DocumentCreateManyExpenseInput[]
+  skipDuplicates?: boolean
 }
 
 export type DocumentUpsertWithWhereUniqueWithoutExpenseInput = {
@@ -2840,6 +2847,7 @@ export type DocumentCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many Documents.
    */
   data: Prisma.DocumentCreateManyInput | Prisma.DocumentCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2858,6 +2866,7 @@ export type DocumentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Documents.
    */
   data: Prisma.DocumentCreateManyInput | Prisma.DocumentCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

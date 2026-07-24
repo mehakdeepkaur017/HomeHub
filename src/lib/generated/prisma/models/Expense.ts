@@ -1022,6 +1022,7 @@ export type ExpenseCreateOrConnectWithoutCreatedByInput = {
 
 export type ExpenseCreateManyCreatedByInputEnvelope = {
   data: Prisma.ExpenseCreateManyCreatedByInput | Prisma.ExpenseCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type ExpenseCreateWithoutApprovedByInput = {
@@ -1075,6 +1076,7 @@ export type ExpenseCreateOrConnectWithoutApprovedByInput = {
 
 export type ExpenseCreateManyApprovedByInputEnvelope = {
   data: Prisma.ExpenseCreateManyApprovedByInput | Prisma.ExpenseCreateManyApprovedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type ExpenseUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -1185,6 +1187,7 @@ export type ExpenseCreateOrConnectWithoutHomeInput = {
 
 export type ExpenseCreateManyHomeInputEnvelope = {
   data: Prisma.ExpenseCreateManyHomeInput | Prisma.ExpenseCreateManyHomeInput[]
+  skipDuplicates?: boolean
 }
 
 export type ExpenseUpsertWithWhereUniqueWithoutHomeInput = {
@@ -1254,6 +1257,7 @@ export type ExpenseCreateOrConnectWithoutSpaceInput = {
 
 export type ExpenseCreateManySpaceInputEnvelope = {
   data: Prisma.ExpenseCreateManySpaceInput | Prisma.ExpenseCreateManySpaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type ExpenseUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -1323,6 +1327,7 @@ export type ExpenseCreateOrConnectWithoutAssetInput = {
 
 export type ExpenseCreateManyAssetInputEnvelope = {
   data: Prisma.ExpenseCreateManyAssetInput | Prisma.ExpenseCreateManyAssetInput[]
+  skipDuplicates?: boolean
 }
 
 export type ExpenseUpsertWithWhereUniqueWithoutAssetInput = {
@@ -1496,6 +1501,7 @@ export type ExpenseCreateOrConnectWithoutMaintenanceInput = {
 
 export type ExpenseCreateManyMaintenanceInputEnvelope = {
   data: Prisma.ExpenseCreateManyMaintenanceInput | Prisma.ExpenseCreateManyMaintenanceInput[]
+  skipDuplicates?: boolean
 }
 
 export type ExpenseUpsertWithWhereUniqueWithoutMaintenanceInput = {
@@ -2911,6 +2917,7 @@ export type ExpenseCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Expenses.
    */
   data: Prisma.ExpenseCreateManyInput | Prisma.ExpenseCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2929,6 +2936,7 @@ export type ExpenseCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Expenses.
    */
   data: Prisma.ExpenseCreateManyInput | Prisma.ExpenseCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

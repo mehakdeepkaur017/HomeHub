@@ -2574,6 +2574,7 @@ export type HomeCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * The data used to create many Homes.
    */
   data: Prisma.HomeCreateManyInput | Prisma.HomeCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2592,6 +2593,7 @@ export type HomeCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * The data used to create many Homes.
    */
   data: Prisma.HomeCreateManyInput | Prisma.HomeCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

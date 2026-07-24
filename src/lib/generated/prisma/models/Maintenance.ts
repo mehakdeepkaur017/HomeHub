@@ -1077,6 +1077,7 @@ export type MaintenanceCreateOrConnectWithoutCreatedByInput = {
 
 export type MaintenanceCreateManyCreatedByInputEnvelope = {
   data: Prisma.MaintenanceCreateManyCreatedByInput | Prisma.MaintenanceCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type MaintenanceCreateWithoutCompletedByInput = {
@@ -1134,6 +1135,7 @@ export type MaintenanceCreateOrConnectWithoutCompletedByInput = {
 
 export type MaintenanceCreateManyCompletedByInputEnvelope = {
   data: Prisma.MaintenanceCreateManyCompletedByInput | Prisma.MaintenanceCreateManyCompletedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type MaintenanceCreateWithoutAssignedToInput = {
@@ -1191,6 +1193,7 @@ export type MaintenanceCreateOrConnectWithoutAssignedToInput = {
 
 export type MaintenanceCreateManyAssignedToInputEnvelope = {
   data: Prisma.MaintenanceCreateManyAssignedToInput | Prisma.MaintenanceCreateManyAssignedToInput[]
+  skipDuplicates?: boolean
 }
 
 export type MaintenanceUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -1322,6 +1325,7 @@ export type MaintenanceCreateOrConnectWithoutHomeInput = {
 
 export type MaintenanceCreateManyHomeInputEnvelope = {
   data: Prisma.MaintenanceCreateManyHomeInput | Prisma.MaintenanceCreateManyHomeInput[]
+  skipDuplicates?: boolean
 }
 
 export type MaintenanceUpsertWithWhereUniqueWithoutHomeInput = {
@@ -1395,6 +1399,7 @@ export type MaintenanceCreateOrConnectWithoutSpaceInput = {
 
 export type MaintenanceCreateManySpaceInputEnvelope = {
   data: Prisma.MaintenanceCreateManySpaceInput | Prisma.MaintenanceCreateManySpaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type MaintenanceUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -1468,6 +1473,7 @@ export type MaintenanceCreateOrConnectWithoutAssetInput = {
 
 export type MaintenanceCreateManyAssetInputEnvelope = {
   data: Prisma.MaintenanceCreateManyAssetInput | Prisma.MaintenanceCreateManyAssetInput[]
+  skipDuplicates?: boolean
 }
 
 export type MaintenanceUpsertWithWhereUniqueWithoutAssetInput = {
@@ -3162,6 +3168,7 @@ export type MaintenanceCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * The data used to create many Maintenances.
    */
   data: Prisma.MaintenanceCreateManyInput | Prisma.MaintenanceCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -3180,6 +3187,7 @@ export type MaintenanceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * The data used to create many Maintenances.
    */
   data: Prisma.MaintenanceCreateManyInput | Prisma.MaintenanceCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

@@ -907,6 +907,7 @@ export type SpaceCreateOrConnectWithoutCreatedByInput = {
 
 export type SpaceCreateManyCreatedByInputEnvelope = {
   data: Prisma.SpaceCreateManyCreatedByInput | Prisma.SpaceCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type SpaceUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -999,6 +1000,7 @@ export type SpaceCreateOrConnectWithoutHomeInput = {
 
 export type SpaceCreateManyHomeInputEnvelope = {
   data: Prisma.SpaceCreateManyHomeInput | Prisma.SpaceCreateManyHomeInput[]
+  skipDuplicates?: boolean
 }
 
 export type SpaceUpsertWithWhereUniqueWithoutHomeInput = {
@@ -1229,6 +1231,7 @@ export type SpaceCreateOrConnectWithoutParentSpaceInput = {
 
 export type SpaceCreateManyParentSpaceInputEnvelope = {
   data: Prisma.SpaceCreateManyParentSpaceInput | Prisma.SpaceCreateManyParentSpaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type SpaceUpsertWithoutChildSpacesInput = {
@@ -2874,6 +2877,7 @@ export type SpaceCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * The data used to create many Spaces.
    */
   data: Prisma.SpaceCreateManyInput | Prisma.SpaceCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2892,6 +2896,7 @@ export type SpaceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many Spaces.
    */
   data: Prisma.SpaceCreateManyInput | Prisma.SpaceCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

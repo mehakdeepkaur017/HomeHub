@@ -1070,6 +1070,7 @@ export type AssetCreateOrConnectWithoutCreatedByInput = {
 
 export type AssetCreateManyCreatedByInputEnvelope = {
   data: Prisma.AssetCreateManyCreatedByInput | Prisma.AssetCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
 }
 
 export type AssetUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -1183,6 +1184,7 @@ export type AssetCreateOrConnectWithoutHomeInput = {
 
 export type AssetCreateManyHomeInputEnvelope = {
   data: Prisma.AssetCreateManyHomeInput | Prisma.AssetCreateManyHomeInput[]
+  skipDuplicates?: boolean
 }
 
 export type AssetUpsertWithWhereUniqueWithoutHomeInput = {
@@ -1266,6 +1268,7 @@ export type AssetCreateOrConnectWithoutSpaceInput = {
 
 export type AssetCreateManySpaceInputEnvelope = {
   data: Prisma.AssetCreateManySpaceInput | Prisma.AssetCreateManySpaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type AssetUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -2923,6 +2926,7 @@ export type AssetCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * The data used to create many Assets.
    */
   data: Prisma.AssetCreateManyInput | Prisma.AssetCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2941,6 +2945,7 @@ export type AssetCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many Assets.
    */
   data: Prisma.AssetCreateManyInput | Prisma.AssetCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

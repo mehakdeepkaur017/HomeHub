@@ -610,6 +610,7 @@ export type ActivityCreateOrConnectWithoutUserInput = {
 
 export type ActivityCreateManyUserInputEnvelope = {
   data: Prisma.ActivityCreateManyUserInput | Prisma.ActivityCreateManyUserInput[]
+  skipDuplicates?: boolean
 }
 
 export type ActivityUpsertWithWhereUniqueWithoutUserInput = {
@@ -678,6 +679,7 @@ export type ActivityCreateOrConnectWithoutHomeInput = {
 
 export type ActivityCreateManyHomeInputEnvelope = {
   data: Prisma.ActivityCreateManyHomeInput | Prisma.ActivityCreateManyHomeInput[]
+  skipDuplicates?: boolean
 }
 
 export type ActivityUpsertWithWhereUniqueWithoutHomeInput = {
@@ -729,6 +731,7 @@ export type ActivityCreateOrConnectWithoutSpaceInput = {
 
 export type ActivityCreateManySpaceInputEnvelope = {
   data: Prisma.ActivityCreateManySpaceInput | Prisma.ActivityCreateManySpaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type ActivityUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -1677,6 +1680,7 @@ export type ActivityCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many Activities.
    */
   data: Prisma.ActivityCreateManyInput | Prisma.ActivityCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1695,6 +1699,7 @@ export type ActivityCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Activities.
    */
   data: Prisma.ActivityCreateManyInput | Prisma.ActivityCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
