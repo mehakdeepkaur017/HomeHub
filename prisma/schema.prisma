@@ -1,0 +1,440 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String?
+  avatar    String?
+  phone     String?
+  password  String    // Hashed password
+  timezone  String    @default("UTC")
+  language  String    @default("en")
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  memberships       Membership[]
+  sentInvitations   Invitation[]   @relation("InvitedBy")
+  activities        Activity[]
+  notifications     Notification[]
+  assetsCreated     Asset[]
+  documentsUploaded Document[]     @relation("DocumentUploadedBy")
+  documentsRelated  Document[]     @relation("DocumentToMember")
+  maintenanceCreated   Maintenance[] @relation("MaintenanceCreatedBy")
+  maintenanceCompleted Maintenance[] @relation("MaintenanceCompletedBy")
+  maintenanceAssigned  Maintenance[] @relation("MaintenanceAssignedTo")
+  expensesCreated      Expense[]     @relation("ExpenseCreatedBy")
+  expensesApproved     Expense[]     @relation("ExpenseApprovedBy")
+  spacesCreated        Space[]       @relation("SpaceCreatedBy")
+}
+
+enum HomeType {
+  APARTMENT
+  INDEPENDENT_HOUSE
+  VILLA
+  PG
+  HOSTEL
+  OTHER
+}
+
+model Home {
+  id          String    @id @default(uuid())
+  name        String
+  type        HomeType  @default(OTHER)
+  timezone    String    @default("UTC")
+  currency    String    @default("USD")
+  photo       String?
+  description String?
+  memberLimit Int       @default(10)
+  isDeleted   Boolean   @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  memberships   Membership[]
+  invitations   Invitation[]
+  activities    Activity[]
+  notifications Notification[]
+  spaces        Space[]
+  assets        Asset[]
+  documents     Document[]
+  maintenance   Maintenance[]
+  expenses      Expense[]
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+  GUEST
+}
+
+model Membership {
+  id        String   @id @default(uuid())
+  role      Role     @default(MEMBER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  home   Home   @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  homeId String
+
+  @@unique([userId, homeId])
+  @@index([userId])
+  @@index([homeId])
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  REVOKED
+}
+
+model Invitation {
+  id        String           @id @default(uuid())
+  email     String?          
+  code      String           @unique
+  role      Role             @default(MEMBER)
+  status    InvitationStatus @default(PENDING)
+  expiresAt DateTime
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  home        Home   @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  homeId      String
+
+  invitedBy   User   @relation("InvitedBy", fields: [invitedById], references: [id], onDelete: Cascade)
+  invitedById String
+
+  @@index([homeId])
+  @@index([invitedById])
+  @@index([email])
+}
+
+enum ActivitySeverity {
+  INFO
+  WARNING
+  ERROR
+  SUCCESS
+}
+
+model Activity {
+  id          String           @id @default(uuid())
+  type        String
+  description String
+  targetId    String?          
+  targetType  String?          
+  metadata    Json?            
+  severity    ActivitySeverity @default(INFO)
+  createdAt   DateTime         @default(now())
+
+  home        Home   @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  homeId      String
+
+  user        User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId      String?
+
+  spaceId     String?
+  space       Space? @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+
+  @@index([homeId])
+  @@index([userId])
+  @@index([targetId, targetType])
+  @@index([spaceId])
+}
+
+enum NotificationCategory {
+  SYSTEM
+  INVITATION
+  SECURITY
+  GENERAL
+}
+
+model Notification {
+  id          String               @id @default(uuid())
+  title       String
+  description String
+  severity    ActivitySeverity     @default(INFO)
+  category    NotificationCategory @default(GENERAL)
+  isRead      Boolean              @default(false)
+  createdAt   DateTime             @default(now())
+
+  home        Home   @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  homeId      String
+
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+
+  @@index([homeId])
+  @@index([userId])
+}
+
+model Space {
+  id            String    @id @default(uuid())
+  name          String
+  slug          String
+  icon          String?
+  color         String?
+  coverImage    String?
+  description   String?
+  floor         String?
+  displayOrder  Int       @default(0)
+  archived      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  home          Home      @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  homeId        String
+  
+  parentSpace   Space?    @relation("SpaceToSpace", fields: [parentSpaceId], references: [id], onDelete: SetNull)
+  parentSpaceId String?
+  childSpaces   Space[]   @relation("SpaceToSpace")
+  assets        Asset[]
+  activities    Activity[]
+  documents     Document[]
+  maintenance   Maintenance[]
+  expenses      Expense[]
+
+  createdById   String?
+  createdBy     User?      @relation("SpaceCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([homeId])
+  @@index([parentSpaceId])
+  @@index([createdById])
+}
+
+enum AssetCondition {
+  NEW
+  EXCELLENT
+  GOOD
+  FAIR
+  POOR
+  BROKEN
+}
+
+enum AssetStatus {
+  ACTIVE
+  IN_REPAIR
+  LOANED
+  STORED
+  DISPOSED
+}
+
+model Asset {
+  id                    String         @id @default(uuid())
+  name                  String
+  category              String
+  brand                 String?
+  model                 String?
+  serialNumber          String?
+  purchaseDate          DateTime?
+  purchasePrice         Float?
+  estimatedCurrentValue Float?
+  condition             AssetCondition @default(GOOD)
+  status                AssetStatus    @default(ACTIVE)
+  manufacturer          String?
+  barcode               String?
+  qrCode                String?        @unique
+  coverImage            String?
+  description           String?
+  notes                 String?
+  favorite              Boolean        @default(false)
+  archived              Boolean        @default(false)
+  
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  homeId                String
+  home                  Home           @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  
+  spaceId               String?
+  space                 Space?         @relation(fields: [spaceId], references: [id], onDelete: SetNull)
+  
+  createdById           String?
+  createdBy             User?          @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  documents             Document[]
+  maintenance           Maintenance[]
+  expenses              Expense[]
+
+  @@index([homeId])
+  @@index([spaceId])
+  @@index([category])
+}
+
+model Document {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  category    String    // Smart categories: Property, Identity, Insurance, etc.
+  file        String    // Storage path/URL
+  mimeType    String
+  size        Int       // Bytes
+  tags        String?   // Comma-separated or JSON
+  expiryDate  DateTime? // Expiry Engine support
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Connections
+  homeId      String
+  home        Home      @relation(fields: [homeId], references: [id], onDelete: Cascade)
+
+  uploadedById String
+  uploadedBy   User      @relation("DocumentUploadedBy", fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  spaceId     String?
+  space       Space?    @relation(fields: [spaceId], references: [id], onDelete: SetNull)
+
+  assetId     String?
+  asset       Asset?    @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  memberId    String?   // For relatedMember, using User ID or Membership ID. Since Membership links to User and Home, let's just keep memberId as generic String for now or relate to User? The prompt says "Family Member". A User can be a family member. Let's make it a relation to User but named 'relatedMember'.
+  relatedMember User?   @relation("DocumentToMember", fields: [memberId], references: [id], onDelete: SetNull)
+
+  // Future integrations (Store as generic string IDs until Money/Care schemas exist)
+  expenseId     String?
+  expense       Expense? @relation(fields: [expenseId], references: [id], onDelete: SetNull)
+  
+  maintenanceId String?
+  maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id], onDelete: SetNull)
+
+  @@index([homeId])
+  @@index([assetId])
+  @@index([spaceId])
+  @@index([memberId])
+  @@index([maintenanceId])
+  @@index([expenseId])
+}
+
+enum MaintenancePriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  COMPLETED
+  OVERDUE
+  SKIPPED
+}
+
+enum MaintenanceFrequency {
+  ONCE
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  CUSTOM
+}
+
+model Maintenance {
+  id              String               @id @default(uuid())
+  title           String
+  description     String?
+  category        String
+  priority        MaintenancePriority  @default(MEDIUM)
+  status          MaintenanceStatus    @default(SCHEDULED)
+  scheduledDate   DateTime
+  completedDate   DateTime?
+  estimatedCost   Float?
+  actualCost      Float?
+  frequency       MaintenanceFrequency @default(ONCE)
+  notes           String?
+
+  homeId          String
+  home            Home                 @relation(fields: [homeId], references: [id], onDelete: Cascade)
+
+  spaceId         String?
+  space           Space?               @relation(fields: [spaceId], references: [id], onDelete: SetNull)
+
+  assetId         String?
+  asset           Asset?               @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  createdById     String
+  createdBy       User                 @relation("MaintenanceCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  completedById   String?
+  completedBy     User?                @relation("MaintenanceCompletedBy", fields: [completedById], references: [id], onDelete: SetNull)
+
+  assignedToId    String?
+  assignedTo      User?                @relation("MaintenanceAssignedTo", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  documents       Document[]
+  expenses        Expense[]
+
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+
+  @@index([homeId])
+  @@index([spaceId])
+  @@index([assetId])
+  @@index([status, scheduledDate])
+  @@index([assignedToId])
+}
+
+enum ExpenseStatus {
+  PAID
+  PENDING
+  CANCELLED
+}
+
+model Expense {
+  id              String         @id @default(uuid())
+  title           String
+  description     String?
+  amount          Float
+  currency        String         @default("USD")
+  category        String
+  paymentMethod   String?
+  status          ExpenseStatus  @default(PAID)
+  expenseDate     DateTime
+  notes           String?
+  tags            String?
+
+  homeId          String
+  home            Home           @relation(fields: [homeId], references: [id], onDelete: Cascade)
+
+  spaceId         String?
+  space           Space?         @relation(fields: [spaceId], references: [id], onDelete: SetNull)
+
+  assetId         String?
+  asset           Asset?         @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  maintenanceId   String?
+  maintenance     Maintenance?   @relation(fields: [maintenanceId], references: [id], onDelete: SetNull)
+
+  createdById     String
+  createdBy       User           @relation("ExpenseCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  approvedById    String?
+  approvedBy      User?          @relation("ExpenseApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
+
+  documents       Document[]
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([homeId])
+  @@index([spaceId])
+  @@index([assetId])
+  @@index([maintenanceId])
+  @@index([expenseDate])
+  @@index([approvedById])
+}

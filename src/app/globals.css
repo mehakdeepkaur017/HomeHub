@@ -1,0 +1,244 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Warm Linen/Paper Backgrounds */
+  --background: oklch(0.975 0.01 80); /* Warm ivory/linen */
+  --foreground: oklch(0.20 0.02 35); /* Deep espresso brown/charcoal */
+  
+  --card: oklch(0.99 0.005 85); /* Slightly cleaner paper */
+  --card-foreground: oklch(0.20 0.02 35);
+  
+  --popover: oklch(0.99 0.005 85);
+  --popover-foreground: oklch(0.20 0.02 35);
+  
+  --primary: oklch(0.18 0.03 30); /* Rich dark wood */
+  --primary-foreground: oklch(0.975 0.01 80);
+  
+  --secondary: oklch(0.93 0.015 80); /* Muted warm gray/taupe */
+  --secondary-foreground: oklch(0.25 0.02 35);
+  
+  --muted: oklch(0.93 0.015 80);
+  --muted-foreground: oklch(0.45 0.02 40);
+  
+  --accent: oklch(0.90 0.03 60); /* Subtle warm terracotta accent */
+  --accent-foreground: oklch(0.20 0.02 35);
+  
+  /* Semantic Premium Accents (Muted & Earthy) */
+  --forest: oklch(0.35 0.04 150);
+  --amber: oklch(0.70 0.12 60);
+  --terracotta: oklch(0.50 0.10 35);
+  --sage: oklch(0.75 0.03 140);
+
+  --destructive: var(--terracotta);
+  --destructive-foreground: oklch(0.99 0 0);
+  
+  --success: var(--forest);
+  --success-foreground: oklch(0.99 0 0);
+  
+  --warning: var(--amber);
+  --warning-foreground: oklch(0.20 0.02 35);
+  
+  --info: oklch(0.5 0.05 240); 
+  --info-foreground: oklch(0.99 0 0);
+  
+  --border: oklch(0.88 0.015 80); /* Very soft border, like a pencil line */
+  --input: oklch(0.88 0.015 80);
+  --ring: oklch(0.20 0.02 35);
+  
+  --radius: 0.5rem; /* Less rounded, more intentional/architectural */
+  
+  /* Premium Tangible Shadows (Not floating) */
+  --shadow-sm: 0 1px 2px rgba(30, 25, 20, 0.05), 0 1px 1px rgba(30, 25, 20, 0.03);
+  --shadow-md: 0 4px 12px -2px rgba(30, 25, 20, 0.05), 0 2px 6px -1px rgba(30, 25, 20, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(30, 25, 20, 0.06), 0 4px 12px -2px rgba(30, 25, 20, 0.03);
+  --shadow-float: 0 20px 40px -8px rgba(30, 25, 20, 0.08), 0 8px 16px -4px rgba(30, 25, 20, 0.04);
+  --shadow-glow: 0 0 40px -10px rgba(30, 25, 20, 0.06);
+}
+
+.dark {
+  /* Warm cinematic dark mode */
+  --background: oklch(0.15 0.01 40); /* Deep warm charcoal */
+  --foreground: oklch(0.92 0.01 80); /* Soft ivory text */
+  
+  --card: oklch(0.18 0.01 40);
+  --card-foreground: oklch(0.92 0.01 80);
+  
+  --popover: oklch(0.18 0.01 40);
+  --popover-foreground: oklch(0.92 0.01 80);
+  
+  --primary: oklch(0.92 0.01 80);
+  --primary-foreground: oklch(0.15 0.01 40);
+  
+  --secondary: oklch(0.22 0.01 40);
+  --secondary-foreground: oklch(0.92 0.01 80);
+  
+  --muted: oklch(0.22 0.01 40);
+  --muted-foreground: oklch(0.70 0.01 50);
+  
+  --accent: oklch(0.25 0.02 45);
+  --accent-foreground: oklch(0.92 0.01 80);
+  
+  --forest: oklch(0.40 0.04 150);
+  --amber: oklch(0.75 0.12 60);
+  --terracotta: oklch(0.55 0.10 35);
+  --sage: oklch(0.65 0.03 140);
+
+  --destructive: var(--terracotta);
+  --destructive-foreground: oklch(0.99 0 0);
+  
+  --success: var(--forest);
+  --success-foreground: oklch(0.99 0 0);
+  
+  --warning: var(--amber);
+  --warning-foreground: oklch(0.15 0.01 40);
+  
+  --info: oklch(0.55 0.05 240);
+  --info-foreground: oklch(0.99 0 0);
+  
+  --border: oklch(0.25 0.01 40);
+  --input: oklch(0.25 0.01 40);
+  --ring: oklch(0.70 0.01 50);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+  --shadow-float: 0 20px 40px -8px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px -10px rgba(255, 245, 230, 0.03);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-forest: var(--forest);
+  --color-amber: var(--amber);
+  --color-terracotta: var(--terracotta);
+  --color-sage: var(--sage);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
+  
+  --font-sans: var(--font-manrope);
+  --font-serif: var(--font-fraunces);
+  
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-float: var(--shadow-float);
+  --shadow-glow: var(--shadow-glow);
+}
+
+@utility text-hero {
+  font-size: clamp(4.5rem, 8vw, 5.5rem); /* 72-88px */
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+@utility text-section {
+  font-size: clamp(2.625rem, 5vw, 3.25rem); /* 42-52px */
+  font-family: var(--font-serif);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+@utility text-story {
+  font-size: clamp(1.875rem, 4vw, 2.25rem); /* 30-36px */
+  font-family: var(--font-serif);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+@utility text-body {
+  font-size: clamp(1.0625rem, 2vw, 1.125rem); /* 17-18px */
+  line-height: 1.65;
+  max-width: 65ch;
+}
+
+@utility text-label {
+  font-size: clamp(0.75rem, 1vw, 0.8125rem); /* 12-13px */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+@utility text-eyebrow {
+  font-size: clamp(0.7rem, 1vw, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+@utility text-metadata {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+}
+
+@utility texture-paper {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+@utility mask-fade-out {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+@utility mask-fade-right {
+  mask-image: linear-gradient(to right, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 50%, transparent 100%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased texture-paper;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight text-primary;
+  }
+}
