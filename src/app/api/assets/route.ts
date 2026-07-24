@@ -56,6 +56,7 @@ export const POST = withHomeAuth(async (req: AuthenticatedRequest) => {
       data: {
         name: data.name,
         category: data.category || "Uncategorized",
+        coverImage: data.coverImage || null,
         brand: data.brand,
         model: data.model,
         serialNumber: data.serialNumber,
