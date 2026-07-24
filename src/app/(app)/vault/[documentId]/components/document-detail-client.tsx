@@ -62,61 +62,6 @@ export function DocumentDetailClient({ document, activities, relationshipsPanel 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  // Connected Home Graph Data
-  const centralNode: GraphNode = {
-    id: document.id,
-    type: "DOCUMENT",
-    name: document.title,
-    subtitle: document.category,
-    link: `/vault/${document.id}`
-  };
-
-  const satellites: GraphNode[] = [];
-  if (document.space) {
-    satellites.push({
-      id: document.space.id,
-      type: "SPACE",
-      name: document.space.name,
-      subtitle: "Related Space",
-      link: `/spaces/${document.space.id}`
-    });
-  }
-  if (document.asset) {
-    satellites.push({
-      id: document.asset.id,
-      type: "ASSET",
-      name: document.asset.name,
-      subtitle: "Related Asset",
-      link: `/assets/${document.asset.id}`
-    });
-  }
-  if (document.uploadedBy) {
-    satellites.push({
-      id: document.uploadedBy.id,
-      type: "MEMBER",
-      name: document.uploadedBy.name || "Unknown",
-      subtitle: "Uploaded By",
-      link: `/family/${document.uploadedBy.id}`
-    });
-  }
-  if (document.maintenance) {
-    satellites.push({
-      id: document.maintenance.id,
-      type: "MAINTENANCE",
-      name: document.maintenance.title,
-      link: `/care/${document.maintenance.id}`
-    });
-  }
-  if (document.expense) {
-    satellites.push({
-      id: document.expense.id,
-      type: "EXPENSE",
-      name: document.expense.title,
-      subtitle: `${document.expense.currency} ${document.expense.amount}`,
-      link: `/money/${document.expense.id}`
-    });
-  }
-
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 pb-24">
       {/* Navigation */}

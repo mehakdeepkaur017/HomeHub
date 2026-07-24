@@ -47,69 +47,6 @@ export function ExpenseDetailClient({ expense, activities, relationshipsPanel }:
     }
   };
 
-  // Connected Home Graph Data
-  const centralNode: GraphNode = {
-    id: expense.id,
-    type: "EXPENSE",
-    name: expense.title,
-    subtitle: `${formatCurrency(expense.amount, expense.currency || activeHome?.currency || 'USD')}`,
-    link: `/money/${expense.id}`
-  };
-
-  const satellites: GraphNode[] = [];
-  if (expense.space) {
-    satellites.push({
-      id: expense.space.id,
-      type: "SPACE",
-      name: expense.space.name,
-      subtitle: "Related Space",
-      link: `/spaces/${expense.space.id}`
-    });
-  }
-  if (expense.asset) {
-    satellites.push({
-      id: expense.asset.id,
-      type: "ASSET",
-      name: expense.asset.name,
-      subtitle: "Related Asset",
-      link: `/assets/${expense.asset.id}`
-    });
-  }
-  if (expense.maintenance) {
-    satellites.push({
-      id: expense.maintenance.id,
-      type: "MAINTENANCE",
-      name: expense.maintenance.title,
-      link: `/care/${expense.maintenance.id}`
-    });
-  }
-  if (expense.createdBy) {
-    satellites.push({
-      id: expense.createdBy.id,
-      type: "MEMBER",
-      name: expense.createdBy.name || "Unknown",
-      subtitle: "Added By",
-      link: `/family/${expense.createdBy.id}`
-    });
-  }
-  if (expense.approvedBy && expense.approvedBy.id !== expense.createdBy?.id) {
-    satellites.push({
-      id: expense.approvedBy.id,
-      type: "MEMBER",
-      name: expense.approvedBy.name || "Unknown",
-      subtitle: "Approved By",
-      link: `/family/${expense.approvedBy.id}`
-    });
-  }
-  if (expense.documents) {
-    expense.documents.forEach((doc: any) => satellites.push({
-      id: doc.id,
-      type: "DOCUMENT",
-      name: doc.title,
-      link: `/vault/${doc.id}`
-    }));
-  }
-
   return (
     <motion.div 
       initial={{ opacity: 0 }}

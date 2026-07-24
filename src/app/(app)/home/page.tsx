@@ -64,7 +64,6 @@ export default function HomePage() {
             isLearning={briefing.isLearning} 
             presence={presence}
             homeName={activeHome.name}
-            latestMoment={moments?.[0]}
           />
         </section>
       )}

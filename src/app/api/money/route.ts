@@ -62,7 +62,7 @@ export const POST = withHomeAuth(async (req: AuthenticatedRequest) => {
         title: data.title,
         description: data.description || null,
         amount: parseFloat(data.amount),
-        currency: data.currency || req.home!.currency || "USD",
+        currency: data.currency || "USD",
         category: data.category,
         paymentMethod: data.paymentMethod || null,
         status: data.status || "PAID",

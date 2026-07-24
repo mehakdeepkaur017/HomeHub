@@ -53,67 +53,6 @@ export function MemberProfileClient({ memberId, relationshipsPanel }: { memberId
     contributions.maintenance.length + 
     contributions.expenses.length;
 
-  // Connected Home Graph Data
-  const centralNode: GraphNode = {
-    id: member.id,
-    type: "MEMBER",
-    name: member.name || "Unknown",
-    subtitle: member.role,
-    link: `/family/${member.id}`
-  };
-
-  const satellites: GraphNode[] = [];
-  
-  const maxSatellites = 15;
-  let count = 0;
-
-  for (const asset of member.contributions.assets) {
-    if (count++ >= maxSatellites) break;
-    satellites.push({
-      id: asset.id,
-      type: "ASSET",
-      name: asset.name,
-      link: `/assets/${asset.id}`
-    });
-  }
-  for (const space of member.contributions.spaces) {
-    if (count++ >= maxSatellites) break;
-    satellites.push({
-      id: space.id,
-      type: "SPACE",
-      name: space.name,
-      link: `/spaces/${space.id}`
-    });
-  }
-  for (const doc of member.contributions.documents) {
-    if (count++ >= maxSatellites) break;
-    satellites.push({
-      id: doc.id,
-      type: "DOCUMENT",
-      name: doc.title,
-      link: `/vault/${doc.id}`
-    });
-  }
-  for (const m of member.contributions.maintenance) {
-    if (count++ >= maxSatellites) break;
-    satellites.push({
-      id: m.id,
-      type: "MAINTENANCE",
-      name: m.title,
-      link: `/care/${m.id}`
-    });
-  }
-  for (const e of member.contributions.expenses) {
-    if (count++ >= maxSatellites) break;
-    satellites.push({
-      id: e.id,
-      type: "EXPENSE",
-      name: e.title,
-      subtitle: `₹ ${e.amount}`,
-      link: `/money/${e.id}`
-    });
-  }
-
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 pb-32">
       

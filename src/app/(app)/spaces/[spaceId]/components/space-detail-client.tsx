@@ -240,52 +240,6 @@ export function SpaceDetailClient({ space, relationshipsPanel }: SpaceDetailClie
     personalityDesc = "The center of activity in your home recently.";
   }
 
-  // Connected Home Graph Data
-  const centralNode: GraphNode = {
-    id: space.id,
-    type: "SPACE",
-    name: space.name,
-    subtitle: space.floor || "Unassigned Floor",
-    link: `/spaces/${space.id}`
-  };
-
-  const satellites: GraphNode[] = [];
-  if (space.createdBy) {
-    satellites.push({
-      id: space.createdBy.id,
-      type: "MEMBER",
-      name: space.createdBy.name || "Unknown",
-      subtitle: "Creator",
-      link: `/family/${space.createdBy.id}`
-    });
-  }
-  space.assets.forEach((a: any) => satellites.push({
-    id: a.id,
-    type: "ASSET",
-    name: a.name,
-    subtitle: a.category,
-    link: `/assets/${a.id}`
-  }));
-  documents.forEach((doc: any) => satellites.push({
-    id: doc.id,
-    type: "DOCUMENT",
-    name: doc.title,
-    link: `/vault/${doc.id}`
-  }));
-  maintenance.forEach((m: any) => satellites.push({
-    id: m.id,
-    type: "MAINTENANCE",
-    name: m.title,
-    link: `/care/${m.id}`
-  }));
-  expenses.forEach((e: any) => satellites.push({
-    id: e.id,
-    type: "EXPENSE",
-    name: e.title,
-    subtitle: `${e.currency} ${e.amount}`,
-    link: `/money/${e.id}`
-  }));
-
   return (
     <div className="space-y-10">
       <input type="file" ref={fileInputRef} accept="image/*" onChange={handlePhotoUpload} className="hidden" />

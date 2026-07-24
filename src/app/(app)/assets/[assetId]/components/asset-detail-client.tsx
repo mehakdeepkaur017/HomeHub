@@ -125,54 +125,6 @@ export function AssetDetailClient({ asset, activities, relationshipsPanel }: Ass
   const maintenanceExpenses = expenses.reduce((sum: number, exp: any) => sum + exp.amount, 0);
   const totalInvestment = totalPurchaseCost + maintenanceExpenses;
 
-  // Connected Home Graph Data
-  const centralNode: GraphNode = {
-    id: asset.id,
-    type: "ASSET",
-    name: asset.name,
-    subtitle: asset.brand || asset.category,
-    link: `/assets/${asset.id}`
-  };
-
-  const satellites: GraphNode[] = [];
-  if (asset.space) {
-    satellites.push({
-      id: asset.space.id,
-      type: "SPACE",
-      name: asset.space.name,
-      subtitle: "Located In",
-      link: `/spaces/${asset.space.id}`
-    });
-  }
-  if (asset.createdBy) {
-    satellites.push({
-      id: asset.createdBy.id,
-      type: "MEMBER",
-      name: asset.createdBy.name || "Unknown",
-      subtitle: "Added By",
-      link: `/family/${asset.createdBy.id}`
-    });
-  }
-  documents.forEach((doc: any) => satellites.push({
-    id: doc.id,
-    type: "DOCUMENT",
-    name: doc.title,
-    link: `/vault/${doc.id}`
-  }));
-  maintenance.forEach((m: any) => satellites.push({
-    id: m.id,
-    type: "MAINTENANCE",
-    name: m.title,
-    link: `/care/${m.id}`
-  }));
-  expenses.forEach((e: any) => satellites.push({
-    id: e.id,
-    type: "EXPENSE",
-    name: e.title,
-    subtitle: `${formatCurrency(e.amount, e.currency || activeHome?.currency || 'USD')}`,
-    link: `/money/${e.id}`
-  }));
-
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 pb-24">
       {/* Navigation */}
