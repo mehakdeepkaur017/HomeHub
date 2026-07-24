@@ -81,19 +81,6 @@ export default async function SpaceDetailsPage({ params }: { params: { spaceId: 
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Explorer
               </Link>
-              <div className="flex items-center gap-2">
-                <Link href={`/home/memory?targetId=${space.id}&targetType=SPACE`}>
-                  <Button variant="outline" size="sm" className="bg-background/50 backdrop-blur border-border/50 text-muted-foreground hover:text-foreground">
-                    History
-                  </Button>
-                </Link>
-                <Button variant="outline" size="sm" className="bg-background/50 backdrop-blur border-border/50">
-                  <Edit3 className="mr-2 h-4 w-4" /> Edit
-                </Button>
-                <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive/10 hover:text-destructive bg-background/50 backdrop-blur border-border/50">
-                  <Trash2 className="mr-2 h-4 w-4" /> Archive
-                </Button>
-              </div>
             </div>
 
             <div className="space-y-4 max-w-3xl">
